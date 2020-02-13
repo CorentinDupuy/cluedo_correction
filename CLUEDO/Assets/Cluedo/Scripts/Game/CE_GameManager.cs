@@ -14,8 +14,9 @@ public class CE_GameManager : MonoBehaviour
     public static Action<IGamePlayable, int> OnDiceRoll = null;
     #endregion
     #region SAVE
+    string currentUser = "Bobby";
     [SerializeField] bool loadSave = false;
-    bool LoadSave => loadSave && CE_DataPath.IsSave();
+    bool LoadSave => loadSave && CE_DataPath.IsSave(currentUser);
     #endregion
     #region Members
     #region Private
@@ -57,6 +58,8 @@ public class CE_GameManager : MonoBehaviour
     #region Private
     private void Awake()
     {
+        if (CE_DataPath.IsSave(currentUser))
+        { }
         instance = this;
     }
 
