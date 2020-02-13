@@ -13,12 +13,12 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    float positionX;
-    float positionY;
-    float positionZ;
-    bool IsInRoom;
-    List<int> NoteSystem;
-    List<int> HandCards;
+    [SerializeField] float positionX;
+    [SerializeField] float positionY;
+    [SerializeField] float positionZ;
+    [SerializeField] bool IsInRoom;
+    [SerializeField] CE_NoteSystem NoteSystem;
+    [SerializeField] CE_HandCards HandCards;
     #endregion
     #endregion
 
@@ -29,7 +29,7 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    public CE_PlayerDB(Vector3 _position, bool _isInRoom, List<int> _noteSystem, List<int> _handCards)
+    public CE_PlayerDB(Vector3 _position, bool _isInRoom, CE_NoteSystem _noteSystem, CE_HandCards _handCards)
     {
         positionX = _position.x;
         positionY = _position.y;

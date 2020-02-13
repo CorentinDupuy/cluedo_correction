@@ -13,10 +13,10 @@ public struct CE_GameManagerDB
     #region Private
     #endregion
     #region Public
-    int CharacterIndexTurn;
-    int NumberOfTurns;
-    List<int> mysteryCards;
-    int PlayerIndex;
+    [SerializeField] int CharacterIndexTurn;
+    [SerializeField] int NumberOfTurns;
+    [SerializeField] CE_MysteryCards mysteryCards;
+    [SerializeField] int PlayerIndex;
 	#endregion
 	#endregion
 
@@ -27,7 +27,7 @@ public struct CE_GameManagerDB
 	#region Private
 	#endregion
 	#region Public
-    public CE_GameManagerDB(int _characterIndexTurn, int _numberOfTurns, List<int> _mysteryCards, int _playerIndex)
+    public CE_GameManagerDB(int _characterIndexTurn, int _numberOfTurns, CE_MysteryCards _mysteryCards, int _playerIndex)
     {
         CharacterIndexTurn = _characterIndexTurn;
         NumberOfTurns = _numberOfTurns;

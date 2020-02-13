@@ -41,7 +41,7 @@ public class CE_Player : MonoBehaviour, IGamePlayable
 
     public CE_Door NextDoorTarget => throw new NotImplementedException();
 
-    public bool IsInRoom => throw new NotImplementedException();
+    public bool IsInRoom { get; private set; } = false;
 
     public CE_NoteSystem NoteSystem => noteSystem;
     #endregion
