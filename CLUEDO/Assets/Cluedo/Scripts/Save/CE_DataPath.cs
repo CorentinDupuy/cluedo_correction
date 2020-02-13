@@ -22,18 +22,29 @@ public class CE_DataPath
     {
         if (!File.Exists(DataPath))
             File.WriteAllText(DataPath,"");
-        if (InitFolder())
+        if (!InitFolder())
             File.WriteAllText(DataPathSecure,"");
 
         return File.Exists(DataPath) && File.Exists(DataPathSecure);
     }
-    public static bool SaveCorrupted()
+    static bool SaveCorrupted()
     {
         if (!FileExist()) return false;
-        return File.ReadAllText(DataPath) == File.ReadAllText(DataPathSecure);
+        Debug.Log(File.ReadAllText(DataPath));
+        Debug.Log(File.ReadAllText(DataPathSecure));
+        return File.ReadAllText(DataPath) != File.ReadAllText(DataPathSecure);
+    }
+    static void VerifSave()
+    {
+        if(SaveCorrupted())
+        {
+            File.WriteAllText(DataPath, "");
+            File.WriteAllText(DataPathSecure, "");
+        }
     }
     public static bool IsSave()
     {
-        return File.ReadAllText(DataPath) == string.Empty;
+        VerifSave();
+        return File.ReadAllText(DataPath) != string.Empty;
     }
 }

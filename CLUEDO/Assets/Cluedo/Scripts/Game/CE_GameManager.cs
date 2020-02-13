@@ -57,7 +57,6 @@ public class CE_GameManager : MonoBehaviour
     #region Private
     private void Awake()
     {
-        Debug.Log(CE_DataPath.SaveCorrupted());
         instance = this;
     }
 
