@@ -18,25 +18,24 @@ public class CE_GameUser
     #region Public
     public string UserFolder => Path.Combine(CE_BaseURL.FolderPath, userPseudo);
     public string UserSaveJson => Path.Combine(CE_BaseURL.FolderPath, userPseudo, $"cluedo_save_{userPseudo}.json");
-	#endregion
-	#endregion
+    #endregion
+    #endregion
 
-	#region Getters/Setters
-	#endregion
+    #region Getters/Setters
+    #endregion
 
-	#region Methods
-	#region Private
-	#endregion
-	#region Public
+    #region Methods
+    #region Private
+    #endregion
+    #region Public
     public void SaveUserJson()
     {
         if (!Directory.Exists(UserFolder)) return;
-//        if (!File.Exists(UserFolder)) return;//todo
         CE_GameManager instance = CE_GameManager.Instance;
-        CE_GlobalSaveData saveData = new CE_GlobalSaveData(instance.CurrentCharacterTurnIndex, 
-            instance.CurrentTurn, 
-            instance.MysteryCards, 
-            instance.PlayerCharacterIndex, 
+        CE_GlobalSaveData saveData = new CE_GlobalSaveData(instance.CurrentCharacterTurnIndex,
+            instance.CurrentTurn,
+            instance.MysteryCards,
+            instance.PlayerCharacterIndex,
             instance.AllCharacterInGame);
 
         string _data = JsonUtility.ToJson(saveData);
@@ -44,6 +43,6 @@ public class CE_GameUser
         Debug.Log(_data);
 
     }
-	#endregion
-	#endregion
+    #endregion
+    #endregion
 }

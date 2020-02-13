@@ -10,26 +10,30 @@ public class CE_SaveManager : MonoBehaviour
     #region Members
     #region Private
     CE_GameUser _user = new CE_GameUser();
-	#endregion
-	#region Public
-	#endregion
-	#endregion
+    #endregion
+    #region Public
+    #endregion
+    #endregion
 
-	#region Getters/Setters
-	#endregion
+    #region Getters/Setters
+    #endregion
 
-	#region Methods
-	#region Private
-    IEnumerator Start()
+    #region Methods
+    #region Private
+
+    private void Awake()
+        CE_GameManager.OnEndInit += () => StartCoroutine(Init());
+    }
+    
+    IEnumerator Init()
     {
-        
         yield return StartCoroutine(CreateGameEnvironment());
         yield return StartCoroutine(CreateUserEnvironmentJson(_user));
     }
 
     IEnumerator CreateGameEnvironment()
     {
-        yield return new WaitForSeconds(10);
+
         bool _userExist = Directory.Exists(_user.UserFolder);
         if(!_userExist)
         {
@@ -39,11 +43,10 @@ public class CE_SaveManager : MonoBehaviour
         }
         yield return null;
     }
+
     IEnumerator CreateUserEnvironmentJson(CE_GameUser _user)
     {
         bool _saveExist = File.Exists(_user.UserSaveJson);
-        _user.SaveUserJson();
-
         if (!_saveExist)
         {
             _user.SaveUserJson();
@@ -52,8 +55,17 @@ public class CE_SaveManager : MonoBehaviour
         }
         yield return null;
     }
-	#endregion
-	#region Public
-	#endregion
-	#endregion
+
+    IEnumerator SaveGame()
+    {
+        bool _userExist = Directory.Exists(_user.UserFolder);
+        bool _saveExist = File.Exists(_user.UserSaveJson);
+        if (!_userExist || !_saveExist) yield break;
+        _user.SaveUserJson();
+        yield return null;
+    }
+    #endregion
+    #region Public
+    #endregion
+    #endregion
 }

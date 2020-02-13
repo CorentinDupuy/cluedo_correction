@@ -13,6 +13,7 @@ public class CE_GameManager : MonoBehaviour
     public static event Action<IGamePlayable> OnStartTurn = null;
     public static event Action<IGamePlayable, CE_MysteryCards> OnEndGame = null;
     public static Action<IGamePlayable, int> OnDiceRoll = null;
+    public static event Action OnEndInit = null;
     #endregion
 
     #region Members
@@ -68,8 +69,8 @@ public class CE_GameManager : MonoBehaviour
         yield return StartCoroutine(LoadMysteryCard());
         yield return StartCoroutine(CardDeckShare());
         StartGame = true;
+        OnEndInit?.Invoke();
         SetNextTurn();
-
     }
 
     IEnumerator SetPlayerAndAI()
