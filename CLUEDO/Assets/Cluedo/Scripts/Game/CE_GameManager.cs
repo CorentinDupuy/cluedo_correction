@@ -13,7 +13,10 @@ public class CE_GameManager : MonoBehaviour
     public static event Action<IGamePlayable, CE_MysteryCards> OnEndGame = null;
     public static Action<IGamePlayable, int> OnDiceRoll = null;
     #endregion
-
+    #region SAVE
+    [SerializeField] bool loadSave = false;
+    bool LoadSave => loadSave && CE_DataPath.IsSave();
+    #endregion
     #region Members
     #region Private
     static CE_GameManager instance = null;
@@ -54,6 +57,7 @@ public class CE_GameManager : MonoBehaviour
     #region Private
     private void Awake()
     {
+        Debug.Log(CE_DataPath.SaveCorrupted());
         instance = this;
     }
 
