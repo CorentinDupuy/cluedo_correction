@@ -8,15 +8,15 @@ public class CE_DataPath
     
     public static string DataPath => Path.Combine(FolderDataPath, DataPathExtension);
     public static string FolderDataPath => Path.Combine(Application.persistentDataPath, currentUser);
-    static string DataPathExtension => "/SaveCluedo.fdp";
+    static string DataPathExtension => "SaveCluedo.fdp";
     static string currentUser = "";
     public static string DataPathSecure => Path.Combine(FolderDataPathSecure,  DataPathSecureExtension);
-    public static string FolderDataPathSecure => Path.Combine(Application.persistentDataPath,  currentUser);
-    static string DataPathSecureExtension => "/Porn/ghnhuz.TOTORO";
+    public static string FolderDataPathSecure => Path.Combine(FolderDataPath, FolderSecure);
+    static string DataPathSecureExtension => "ghnhuz.TOTORO";
+    static string FolderSecure = "Porn";
     
     static bool InitFolder()
     {
-        Debug.Log(currentUser);
         if (!Directory.Exists(FolderDataPath))
             Directory.CreateDirectory(FolderDataPath);
 
@@ -53,9 +53,7 @@ public class CE_DataPath
     }
     public static bool IsSave(string _user)
     {
-        Debug.Log(_user);
         currentUser = _user;
-        Debug.Log(currentUser);
         VerifSave();
         return File.ReadAllText(DataPath) != string.Empty;
     }
