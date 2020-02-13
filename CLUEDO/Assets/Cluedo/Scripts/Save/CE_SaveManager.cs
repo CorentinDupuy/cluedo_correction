@@ -22,6 +22,7 @@ public class CE_SaveManager : MonoBehaviour
     #region Private
 
     private void Awake()
+    { 
         CE_GameManager.OnEndInit += () => StartCoroutine(Init());
     }
     
