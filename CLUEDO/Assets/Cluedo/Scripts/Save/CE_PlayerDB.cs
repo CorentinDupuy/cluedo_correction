@@ -13,10 +13,12 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    Vector3 Position;
+    float positionX;
+    float positionY;
+    float positionZ;
     bool IsInRoom;
-    CE_NoteSystem NoteSystem;
-    CE_HandCards HandCards;
+    List<int> NoteSystem;
+    List<int> HandCards;
     #endregion
     #endregion
 
@@ -27,6 +29,18 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
+    public CE_PlayerDB(Vector3 _position, bool _isInRoom, List<int> _noteSystem, List<int> _handCards)
+    {
+        positionX = _position.x;
+        positionY = _position.y;
+        positionZ = _position.z;
+
+        IsInRoom = _isInRoom;
+
+        NoteSystem = _noteSystem;
+
+        HandCards = _handCards;
+    }
     #endregion
     #endregion
 }
