@@ -61,6 +61,7 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
     public bool IsInRoom => isInRoom;
 
     public CE_NoteSystem NoteSystem => noteSystem;
+    public CE_NoteSystem SetNoteSystem(CE_NoteSystem _system) => noteSystem = _system;
 
     public CE_Cell CurrentCell {get; private set;} = null;
 
@@ -225,6 +226,15 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
         Select(false);
         lightFeedBack = GetComponentInChildren<Light>();
     }
+    public void Init(CE_GameBoadCharacter _character,Vector3 pos)
+    {
+        characterRef = _character;
+        transform.position = pos;
+        name = $"{_character.Character} [IA]";
+        Select(false);
+        lightFeedBack = GetComponentInChildren<Light>();
+    }
+
 
     public void OnDrawGizmos()
     {
@@ -270,6 +280,11 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
         iaNavigation.ComputePath(CE_Board.Instance, CE_Board.Instance.GetNearestCell(transform.position), _cell);
         stepCount = 0;
         IsMoving = true;
+    }
+
+    public void SetHandCard(CE_HandCards _handCard)
+    {
+        handCards = _handCard;
     }
     #endregion
     #endregion

@@ -32,6 +32,7 @@ public interface IGamePlayable
     CE_Room NextRoomInvestigate { get; }
     CE_Room LastRoom { get; }
     CE_Door NextDoorTarget { get; }
+    void SetHandCard(CE_HandCards _handCard);
     bool IsInRoom { get; }
     #endregion
 

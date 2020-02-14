@@ -11,8 +11,8 @@ public class CE_GlobalSaveData
 
     #region Members
     #region Private
-    [SerializeField] List<CE_PlayerDB> savePlayerData = new List<CE_PlayerDB>();
-    [SerializeField] CE_GameManagerDB saveGameManagerData = new CE_GameManagerDB();
+    [SerializeField] public List<CE_PlayerDB> savePlayerData = new List<CE_PlayerDB>();
+    [SerializeField] public CE_GameManagerDB saveGameManagerData = new CE_GameManagerDB();
 	#endregion
 	#region Public
 	#endregion

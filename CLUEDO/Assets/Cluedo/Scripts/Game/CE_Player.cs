@@ -44,6 +44,7 @@ public class CE_Player : MonoBehaviour, IGamePlayable
     public bool IsInRoom => throw new NotImplementedException();
 
     public CE_NoteSystem NoteSystem => noteSystem;
+    public CE_NoteSystem SetNotSystem(CE_NoteSystem _value) => noteSystem = _value;
     #endregion
 
     #region Methods
@@ -63,11 +64,23 @@ public class CE_Player : MonoBehaviour, IGamePlayable
         Select(false);
         lightFeedBack = GetComponentInChildren<Light>();
     }
+    public void Init(CE_GameBoadCharacter _character , Vector3 _pos)
+    {
+        characterRef = _character;
+        transform.position = CE_Board.Instance.GetStartPos(CharacterRef.Character).position;
+        name = $"{_character.Character} [PLAYER]";
+        Select(false);
+        lightFeedBack = GetComponentInChildren<Light>();
+    }
 
     public void OnDrawGizmos()
     {
         Gizmos.color = characterRef.CharacterColor;
         Gizmos.DrawSphere(transform.position + Vector3.up * 10, 1);
+    }
+    public void SetHandCard(CE_HandCards _handCard)
+    {
+        handCards = _handCard;
     }
 
     public void OnStart(IGamePlayable _gamePlayable, int _dice)

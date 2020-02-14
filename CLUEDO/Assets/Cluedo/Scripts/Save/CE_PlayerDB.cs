@@ -13,12 +13,13 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    [SerializeField] float positionX;
-    [SerializeField] float positionY;
-    [SerializeField] float positionZ;
-    [SerializeField] bool IsInRoom;
-    [SerializeField] CE_NoteSystem NoteSystem;
-    [SerializeField] CE_HandCards HandCards;
+    [SerializeField] public  float positionX;
+    [SerializeField] public float positionY;
+    [SerializeField] public float positionZ;
+    [SerializeField] public Vector3 pos => new Vector3(positionX,positionY,positionZ);
+    [SerializeField] public  bool IsInRoom;
+    [SerializeField] public CE_NoteSystem NoteSystem;
+    [SerializeField] public CE_HandCards HandCards;
     #endregion
     #endregion
 

@@ -6,17 +6,11 @@ using System;
 public class CE_LoadSave
 {
    
-    public static void ReadSave()
+    public static CE_GlobalSaveData ReadSave()
     {
         // connard proof
         //if (!CE_DataPath.IsSave()) return;
-        db _db = JsonUtility.FromJson<db>(File.ReadAllText(CE_DataPath.DataPath));
-        Debug.Log(_db.numeros);
+        return JsonUtility.FromJson<CE_GlobalSaveData>(File.ReadAllText(CE_DataPath.DataPath));
+        
     }
-}
-[Serializable]
-public struct db
-{
-    [SerializeField]
-    public int numeros;
 }

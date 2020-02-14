@@ -15,6 +15,7 @@ public class CE_GameManager : MonoBehaviour
     #endregion
     #region SAVE
     string currentUser = "Bobby";
+    CE_GlobalSaveData globalSaveDATA = null;
     [SerializeField] bool loadSave = false;
     bool LoadSave => loadSave && CE_DataPath.IsSave(currentUser);
     #endregion
@@ -58,24 +59,41 @@ public class CE_GameManager : MonoBehaviour
     #region Private
     private void Awake()
     {
-        if (CE_DataPath.IsSave(currentUser))
-        { }
+        
         instance = this;
     }
+    public IEnumerator Load()
+    {
+        Debug.Log("Salut");
+        if (CE_DataPath.IsSave(currentUser))
+        {
+            globalSaveDATA = CE_LoadSave.ReadSave();
 
+            Debug.Log("a");
+        }
+
+        Debug.Log("toi");
+        yield return StartCoroutine(SetPlayerAndAI(globalSaveDATA));
+        yield return StartCoroutine(LoadMysteryCard(globalSaveDATA));
+        yield return StartCoroutine(CardDeckShare(globalSaveDATA));
+    }
     IEnumerator Start()
     {
         if (!IsValid) yield break;
         while (!gameDeck.IsReady)
             yield return null;
-        yield return StartCoroutine(SetPlayerAndAI());
-        yield return StartCoroutine(LoadMysteryCard());
-        yield return StartCoroutine(CardDeckShare());
+        if (LoadSave)
+            yield return StartCoroutine(Load());
+        else
+        {
+            yield return StartCoroutine(SetPlayerAndAI());
+            yield return StartCoroutine(LoadMysteryCard());
+            yield return StartCoroutine(CardDeckShare());
+        }
         StartGame = true;
         SetNextTurn();
 
     }
-
     IEnumerator SetPlayerAndAI()
     {
         CE_Player _player = allGamePlayable[playerCharacterIndex].CharacterTransform.gameObject.AddComponent<CE_Player>();
@@ -98,7 +116,38 @@ public class CE_GameManager : MonoBehaviour
             }
         }
     }
+    IEnumerator SetPlayerAndAI(CE_GlobalSaveData _db)
+    {
+        playerCharacterIndex = _db.saveGameManagerData.PlayerIndex;
+        charactersNumber = _db.savePlayerData.Count;
+        CE_Player _player = allGamePlayable[_db.saveGameManagerData.PlayerIndex].CharacterTransform.gameObject.AddComponent<CE_Player>();
+        _player.Init(allGamePlayable[_db.saveGameManagerData.PlayerIndex],_db.savePlayerData[_db.saveGameManagerData.PlayerIndex].pos);
+        AllCharacterInGame.Add(_player);
+        _player.SetNotSystem(_db.savePlayerData[_db.saveGameManagerData.PlayerIndex].NoteSystem);
+        OnPlayerInit?.Invoke(_player);
+        yield return new WaitForSeconds(.5f);
+        int _count = 0;
+        for (int i = 0; i < allGamePlayable.Count; i++)
+        {
+            if (i != playerCharacterIndex && _count < charactersNumber - 1)
+            {
+                CE_AI _ai = allGamePlayable[i].CharacterTransform.gameObject.AddComponent<CE_AI>();
+                _ai.Init(allGamePlayable[i],_db.savePlayerData[i].pos);
+                _ai.SetNoteSystem(_db.savePlayerData[i].NoteSystem);
+                AllCharacterInGame.Add(_ai);
+                yield return new WaitForSeconds(.5f);
+                _count++;
+            }
+        }
+    }
 
+    IEnumerator LoadMysteryCard(CE_GlobalSaveData _db)
+    {
+        if (!IsValid) yield break;
+        yield return new WaitForSecondsRealtime(1);
+
+        mysteryCards = _db.saveGameManagerData.mysteryCards;
+    }
     IEnumerator LoadMysteryCard()
     {
         if (!IsValid) yield break;
@@ -109,6 +158,16 @@ public class CE_GameManager : MonoBehaviour
         mysteryCards = new CE_MysteryCards(_character, _room, _weapon);
     }
 
+    IEnumerator CardDeckShare(CE_GlobalSaveData _db)
+    {
+        if (!IsValid) yield break;
+        int _characterIndex = _db.saveGameManagerData.CharacterIndexTurn;
+        for(int i = 0; i < _db.savePlayerData.Count;i++)
+        {
+            AllCharacterInGame[i].SetHandCard(_db.savePlayerData[i].HandCards);
+        }
+        OnPlayerReady?.Invoke();
+    }
     IEnumerator CardDeckShare()
     {
         if (!IsValid) yield break;
