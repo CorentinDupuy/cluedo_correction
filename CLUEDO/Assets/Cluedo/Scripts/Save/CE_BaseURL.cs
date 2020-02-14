@@ -15,7 +15,7 @@ public static class CE_BaseURL
 
     #region Getters/Setters
     public static string FolderName => "Cluedo_Save";
-    public static string FolderPath => Path.Combine(Application.persistentDataPath);
+    public static string FolderPath => Application.persistentDataPath;
 	#endregion
 
 	#region Methods

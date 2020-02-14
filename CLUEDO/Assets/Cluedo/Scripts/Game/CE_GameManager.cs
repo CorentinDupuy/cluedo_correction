@@ -19,7 +19,7 @@ public class CE_GameManager : MonoBehaviour
     string currentUser = "Bobby";
     CE_GlobalSaveData globalSaveDATA = null;
     [SerializeField] bool loadSave = false;
-    bool LoadSave => loadSave && CE_DataPath.IsSave(currentUser);
+    bool LoadSave => loadSave /*&& CE_DataPath.IsSave(currentUser)*/;
     #endregion
     #region Members
     #region Private
@@ -117,6 +117,7 @@ public class CE_GameManager : MonoBehaviour
             }
         }
     }
+
     IEnumerator SetPlayerAndAI(CE_GlobalSaveData _db)
     {
         playerCharacterIndex = _db.saveGameManagerData.PlayerIndex;

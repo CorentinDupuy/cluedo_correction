@@ -10,7 +10,10 @@ public class CE_SaveManager : MonoBehaviour
 
     #region Members
     #region Private
-    CE_GameUser _user = new CE_GameUser();
+    static CE_SaveManager instance = null;
+    public static CE_SaveManager Instance => instance;
+
+    [SerializeField] CE_GameUser user = new CE_GameUser();
     #endregion
     #region Public
     #endregion
@@ -21,27 +24,33 @@ public class CE_SaveManager : MonoBehaviour
 
     #region Methods
     #region Private
-
     private void Awake()
     { 
         CE_GameManager.OnEndInit += () => StartCoroutine(Init());
+        InitSingleton();
     }
-    
+
+    void InitSingleton()
+    {
+        if (instance == null)
+            instance = this;
+    }
+
     IEnumerator Init()
     {
         yield return StartCoroutine(CreateGameEnvironment());
-        yield return StartCoroutine(CreateUserEnvironmentJson(_user));
+        yield return StartCoroutine(CreateUserEnvironmentJson(user));
         yield return new WaitForSeconds(20);
         yield return StartCoroutine(SaveGame());
     }
 
     IEnumerator CreateGameEnvironment()
     {
-        bool _userExist = Directory.Exists(_user.UserFolder);
+        bool _userExist = Directory.Exists(user.UserFolder);
         if(!_userExist)
         {
-            Directory.CreateDirectory(_user.UserFolder);
-            _userExist = Directory.Exists(_user.UserFolder);
+            Directory.CreateDirectory(user.UserFolder);
+            _userExist = Directory.Exists(user.UserFolder);
             if (!_userExist) yield break ;
         }
         yield return null;
@@ -69,15 +78,45 @@ public class CE_SaveManager : MonoBehaviour
 
     IEnumerator SaveGame()
     {
-        bool _userExist = Directory.Exists(_user.UserFolder);
-        bool _saveExist = File.Exists(_user.UserSaveJson);
+        bool _userExist = Directory.Exists(user.UserFolder);
+        bool _saveExist = File.Exists(user.UserSaveJson);
         if (!_userExist || !_saveExist) yield break;
-        _user.SaveUserJson();
-        _user.SaveUserBinary();
+        user.SaveUserJson();
+        user.SaveUserBinary();
         yield return null;
     }
+
+
+
+    // bin
+    public bool BinFileExist()
+    {
+        bool _exist = File.Exists(user.UserSaveBin);
+        if (!_exist)
+        {
+            File.WriteAllText(user.UserSaveBin, "");
+        }
+        return _exist;
+    }
+
+    public bool JsonFileExist()
+    {
+        bool _exist = File.Exists(user.UserSaveJson);
+        if (!_exist)
+        {
+            File.WriteAllText(user.UserSaveJson, "");
+        }
+        return _exist;
+    }
+
     #endregion
     #region Public
+    public bool IsSave(string _user)
+    {
+        if (!JsonFileExist() || !BinFileExist()) return false;
+        
+        return File.ReadAllText(user.UserSaveJson) != string.Empty; // todo test bin
+    }
     #endregion
     #endregion
 }

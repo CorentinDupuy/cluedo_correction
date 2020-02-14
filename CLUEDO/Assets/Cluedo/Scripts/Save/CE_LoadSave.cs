@@ -11,6 +11,5 @@ public class CE_LoadSave
         // connard proof
         //if (!CE_DataPath.IsSave()) return;
         return JsonUtility.FromJson<CE_GlobalSaveData>(File.ReadAllText(CE_DataPath.DataPath));
-        
     }
 }
