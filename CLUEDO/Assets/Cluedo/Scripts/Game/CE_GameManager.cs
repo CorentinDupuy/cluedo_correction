@@ -132,7 +132,7 @@ public class CE_GameManager : MonoBehaviour
             if (i != playerCharacterIndex && _count < charactersNumber - 1)
             {
                 CE_AI _ai = allGamePlayable[i].CharacterTransform.gameObject.AddComponent<CE_AI>();
-                _ai.Init(allGamePlayable[i],_db.savePlayerData[i].pos);
+                _ai.Init(allGamePlayable[i],_db.savePlayerData[i].pos,_db.savePlayerData[i].IsInRoom,new CE_Room());
                 _ai.SetNoteSystem(_db.savePlayerData[i].NoteSystem);
                 AllCharacterInGame.Add(_ai);
                 yield return new WaitForSeconds(.5f);
