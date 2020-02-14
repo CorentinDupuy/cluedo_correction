@@ -71,6 +71,8 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
 
     public bool CanMove => throw new NotImplementedException();
 
+    public AIPhase Phase => currentAIPhase;
+
     public int NavigationDiceValue =>diceCount;
     #endregion
 
@@ -170,7 +172,6 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
             IGamePlayable _askTo = CE_GameManager.Instance.AllCharacterInGame[_askIndex];
             CE_Card _result = _askTo.HandCards.GetSuggestCard(_suggest);
             OnSuggestProgress?.Invoke(_suggest, this, _askTo, _result);
-            Debug.Log($"{_askTo.CharacterRef.ColorName} {(_result == null ? "can't" : "can")} answer.");
             if(_result != null)
             {
                 NoteSystem.MatchCard(_result.ID);
@@ -187,6 +188,7 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
 
         nextRoomInvestigate = null;
         currentAIPhase = AIPhase.Idle;
+        _suggest.Reset();
         yield return new WaitForSeconds(5);
     }
 

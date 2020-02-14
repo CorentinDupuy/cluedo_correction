@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class CE_GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CE_GameManager : MonoBehaviour
     public static event Action<IGamePlayable> OnStartTurn = null;
     public static event Action<IGamePlayable, CE_MysteryCards> OnEndGame = null;
     public static Action<IGamePlayable, int> OnDiceRoll = null;
+    public static event Action OnEndInit = null;
     #endregion
     #region SAVE
     string currentUser = "Bobby";
@@ -38,6 +40,7 @@ public class CE_GameManager : MonoBehaviour
     #region Getters/Setters
     public static CE_GameManager Instance => instance;
     public List<IGamePlayable> AllCharacterInGame { get; private set; } = new List<IGamePlayable>();
+    public int PlayerCharacterIndex => playerCharacterIndex;
     public IGamePlayable CurrentCharacterTurn => currentCharacterTurn > -1 ? AllCharacterInGame[currentCharacterTurn] : null;
     public int CurrentCharacterTurnIndex
     {
@@ -48,11 +51,11 @@ public class CE_GameManager : MonoBehaviour
             currentCharacterTurn = currentCharacterTurn > AllCharacterInGame.Count - 1 ? 0 : currentCharacterTurn;
         }
     }
-
+    public int CurrentTurn => currentTurn;
     public CE_Deck GameDeck => gameDeck;
-
+    public CE_MysteryCards MysteryCards => mysteryCards;
     public bool IsValid => gameDeck;
-    public bool StartGame { get; private set; } = false;
+    public bool StartGame { get; private set; } = false; 
     #endregion
 
     #region Methods
@@ -91,8 +94,8 @@ public class CE_GameManager : MonoBehaviour
             yield return StartCoroutine(CardDeckShare());
         }
         StartGame = true;
+        OnEndInit?.Invoke();
         SetNextTurn();
-
     }
     IEnumerator SetPlayerAndAI()
     {

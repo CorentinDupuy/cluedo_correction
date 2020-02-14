@@ -15,6 +15,7 @@ public class CE_NoteSystem
     #region Members
     #region Private
     Dictionary<int, CE_Note> allNotesItems = new Dictionary<int, CE_Note>();
+
     #endregion
     #region Public
     #endregion
@@ -22,12 +23,13 @@ public class CE_NoteSystem
 
     #region Getters/Setters
     public List<CE_Note> GetNotes => allNotesItems.Select(n => n.Value).ToList();
-	#endregion
+    public List<int> GetNotesID => allNotesItems.Select(n => n.Key).ToList();
+    #endregion
 
-	#region Methods
-	#region Private
-	#endregion
-	#region Public
+    #region Methods
+    #region Private
+    #endregion
+    #region Public
     public void AddAllItems(CE_Card[] _cards)
     {
         for (int i = 0; i < _cards.Length; i++)

@@ -5985,6 +5985,7 @@ GameObject:
   - component: {fileID: 1102869272}
   - component: {fileID: 1102869274}
   - component: {fileID: 1102869275}
+  - component: {fileID: 1102869276}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -6104,6 +6105,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableCards: []
+--- !u!114 &1102869276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102869271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7a5a027790f3d4889997078881db6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1105101920 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4024270626664340255, guid: 027d800cad42954479b9f1b2bbc90859,
