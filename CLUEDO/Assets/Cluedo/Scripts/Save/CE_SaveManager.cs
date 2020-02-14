@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+
 public class CE_SaveManager : MonoBehaviour
 {
     #region Events
@@ -28,7 +29,6 @@ public class CE_SaveManager : MonoBehaviour
     
     IEnumerator Init()
     {
-
         yield return StartCoroutine(CreateGameEnvironment());
         yield return StartCoroutine(CreateUserEnvironmentJson(_user));
         yield return new WaitForSeconds(20);
