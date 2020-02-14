@@ -13,10 +13,10 @@ public struct CE_GameManagerDB
     #region Private
     #endregion
     #region Public
-    [SerializeField] int CharacterIndexTurn;
-    [SerializeField] int NumberOfTurns;
-    [SerializeField] CE_MysteryCards mysteryCards;
-    [SerializeField] int PlayerIndex;
+    [SerializeField] public int CharacterIndexTurn;
+    [SerializeField] public int NumberOfTurns;
+    [SerializeField] public CE_MysteryCards mysteryCards;
+    [SerializeField] public int PlayerIndex;
 	#endregion
 	#endregion
 

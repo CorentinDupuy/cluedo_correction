@@ -13,15 +13,16 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    [SerializeField] float positionX;
-    [SerializeField] float positionY;
-    [SerializeField] float positionZ;
-    [SerializeField] bool IsInRoom;
-    [SerializeField] CE_NoteSystem NoteSystem;
-    [SerializeField] CE_HandCards HandCards;
-    [SerializeField] int idNextRoom;
-    [SerializeField] int idLastRoom;
-    [SerializeField] AIPhase aiPhase;
+    [SerializeField] public float positionX;
+    [SerializeField] public float positionY;
+    [SerializeField] public float positionZ;
+    [SerializeField] public bool IsInRoom;
+    [SerializeField] public CE_NoteSystem NoteSystem;
+    [SerializeField] public CE_HandCards HandCards;
+    [SerializeField] public int idNextRoom;
+    [SerializeField] public int idLastRoom;
+    [SerializeField] public AIPhase aiPhase;
+    [SerializeField] public CE_Door NextDoor;
     #endregion
     #endregion
 
@@ -32,7 +33,7 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    public CE_PlayerDB(Vector3 _position, bool _isInRoom, CE_NoteSystem _noteSystem, CE_HandCards _handCards, int _idNextRoom, int _idLastRoom, AIPhase _aiPhase)
+    public CE_PlayerDB(Vector3 _position, bool _isInRoom, CE_NoteSystem _noteSystem, CE_HandCards _handCards, int _idNextRoom, int _idLastRoom, AIPhase _aiPhase, CE_Door _nextDoor)
     {
         positionX = _position.x;
         positionY = _position.y;
@@ -48,6 +49,7 @@ public struct CE_PlayerDB
         idNextRoom = _idNextRoom;
 
         aiPhase = _aiPhase;
+        NextDoor = _nextDoor;
     }
     #endregion
     #endregion
