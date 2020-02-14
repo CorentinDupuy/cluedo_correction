@@ -18,7 +18,7 @@ public struct CE_PlayerDB
     [SerializeField] public float positionZ;
     public Vector3 Pos => new Vector3(positionX, positionY, positionZ);
     [SerializeField] public bool IsInRoom;
-    [SerializeField] public CE_NoteSystem NoteSystem;
+    [SerializeField] public List<CE_Note> notes;
     [SerializeField] public CE_HandCards HandCards;
     [SerializeField] public int idNextRoom;
     [SerializeField] public int idLastRoom;
@@ -38,7 +38,7 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    public CE_PlayerDB(Vector3 _position, bool _isInRoom, CE_NoteSystem _noteSystem, CE_HandCards _handCards, int _idNextRoom, int _idLastRoom, AIPhase _aiPhase, Vector3 _nextDoorPosition)
+    public CE_PlayerDB(Vector3 _position, bool _isInRoom, List<CE_Note> _notes, CE_HandCards _handCards, int _idNextRoom, int _idLastRoom, AIPhase _aiPhase, Vector3 _nextDoorPosition)
     {
         positionX = _position.x;
         positionY = _position.y;
@@ -46,7 +46,7 @@ public struct CE_PlayerDB
 
         IsInRoom = _isInRoom;
 
-        NoteSystem = _noteSystem;
+        notes = _notes;
 
         HandCards = _handCards;
 
