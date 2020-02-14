@@ -16,6 +16,7 @@ public struct CE_PlayerDB
     [SerializeField] public float positionX;
     [SerializeField] public float positionY;
     [SerializeField] public float positionZ;
+    public Vector3 Pos => new Vector3(positionX, positionY, positionZ);
     [SerializeField] public bool IsInRoom;
     [SerializeField] public CE_NoteSystem NoteSystem;
     [SerializeField] public CE_HandCards HandCards;

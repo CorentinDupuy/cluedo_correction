@@ -59,6 +59,7 @@ public class CE_NoteSystem
     public CE_Note PickRandomNotes(CardType _type, bool _checked = false)
     {
         List<CE_Note> _notes = allNotesItems.Where(n => n.Value.IsChecked == _checked && n.Value.Type == _type).Select(n => n.Value).ToList();
+        
         return _notes[UnityEngine.Random.Range(0, _notes.Count)];
     }
     #endregion

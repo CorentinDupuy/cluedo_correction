@@ -67,15 +67,13 @@ public class CE_GameManager : MonoBehaviour
     }
     public IEnumerator Load()
     {
-        Debug.Log("Salut");
         if (CE_DataPath.IsSave(currentUser))
         {
             globalSaveDATA = CE_LoadSave.ReadSave();
 
-            Debug.Log("a");
         }
 
-        Debug.Log("toi");
+
         yield return StartCoroutine(SetPlayerAndAI(globalSaveDATA));
         yield return StartCoroutine(LoadMysteryCard(globalSaveDATA));
         yield return StartCoroutine(CardDeckShare(globalSaveDATA));
@@ -124,7 +122,7 @@ public class CE_GameManager : MonoBehaviour
         playerCharacterIndex = _db.saveGameManagerData.PlayerIndex;
         charactersNumber = _db.savePlayerData.Count;
         CE_Player _player = allGamePlayable[_db.saveGameManagerData.PlayerIndex].CharacterTransform.gameObject.AddComponent<CE_Player>();
-        _player.Init(allGamePlayable[_db.saveGameManagerData.PlayerIndex],_db.savePlayerData[_db.saveGameManagerData.PlayerIndex].pos);
+        _player.Init(allGamePlayable[_db.saveGameManagerData.PlayerIndex], _db.savePlayerData[_db.saveGameManagerData.PlayerIndex].Pos);
         AllCharacterInGame.Add(_player);
         _player.SetNotSystem(_db.savePlayerData[_db.saveGameManagerData.PlayerIndex].NoteSystem);
         OnPlayerInit?.Invoke(_player);
@@ -135,7 +133,13 @@ public class CE_GameManager : MonoBehaviour
             if (i != playerCharacterIndex && _count < charactersNumber - 1)
             {
                 CE_AI _ai = allGamePlayable[i].CharacterTransform.gameObject.AddComponent<CE_AI>();
-                _ai.Init(allGamePlayable[i],_db.savePlayerData[i].pos,_db.savePlayerData[i].IsInRoom,new CE_Room());
+
+                CE_Room _nextRoom = _db.savePlayerData[i].idNextRoom < 0 ? null : CE_Board.Instance.AllRooms[_db.savePlayerData[i].idNextRoom];
+                CE_Room _lastRoom = _db.savePlayerData[i].idLastRoom < 0 ? null : CE_Board.Instance.AllRooms[_db.savePlayerData[i].idLastRoom];
+                AIPhase _iaPhase = _db.savePlayerData[i].aiPhase;
+
+                _ai.Init(allGamePlayable[i], _db.savePlayerData[i].Pos, _db.savePlayerData[i].IsInRoom, _lastRoom, _nextRoom, _iaPhase);
+
                 _ai.SetNoteSystem(_db.savePlayerData[i].NoteSystem);
                 AllCharacterInGame.Add(_ai);
                 yield return new WaitForSeconds(.5f);

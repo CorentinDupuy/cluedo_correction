@@ -39,8 +39,7 @@ public class CE_DataPath
     static bool SaveCorrupted()
     {
         if (!FileExist()) return false;
-        Debug.Log(File.ReadAllText(DataPath));
-        Debug.Log(File.ReadAllText(DataPathSecure));
+
         return File.ReadAllText(DataPath) != File.ReadAllText(DataPathSecure);
     }
     static void VerifSave()

@@ -29,9 +29,11 @@ public class CE_CellNavigation
 	#region Public
     public void ComputePath(CE_Board _board, CE_Cell _start, CE_Cell _end)
     {
+        Debug.Log(BoardCells + "compute path");
         if (!_start || !_end) return;
         BoardCells = _board;
-        _board.AllBoardCells.ForEach(c =>
+
+        BoardCells.AllBoardCells.ForEach(c =>
         {
             c.H = float.MaxValue;
             c.G = float.MaxValue;
@@ -70,6 +72,7 @@ public class CE_CellNavigation
 
     CE_Cell[] GetFinalPath(CE_Cell _start, CE_Cell _end)
     {
+        Debug.Log(BoardCells + "final path");
         List<CE_Cell> _path = new List<CE_Cell>();
         CE_Cell _current = _end;
         _path.Add(_current);
@@ -88,7 +91,13 @@ public class CE_CellNavigation
         StartCell = null;
         EndCell = null;
         Path = null;
-        BoardCells.AllBoardCells.ForEach(c => { c.H = float.MaxValue; c.G = float.MaxValue; });
+        if (BoardCells == null) BoardCells = CE_Board.Instance;
+        for (int i = 0; i < BoardCells.AllBoardCells.Count; i++)
+        {
+            BoardCells.AllBoardCells[i].H = float.MaxValue;
+            BoardCells.AllBoardCells[i].G = float.MaxValue;
+        }
+        
     }
 	#endregion
 	#endregion

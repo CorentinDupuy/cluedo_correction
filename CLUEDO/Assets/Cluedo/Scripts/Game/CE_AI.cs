@@ -122,6 +122,7 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
 
     IEnumerator IAMove()
     {
+
         if (!nextDoorTarget) yield break;
         SetNavigation(nextDoorTarget.Cell, true);
         currentAIPhase = AIPhase.Move;
@@ -232,14 +233,17 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
         Select(false);
         lightFeedBack = GetComponentInChildren<Light>();
     }
-    public void Init(CE_GameBoadCharacter _character, Vector3 pos, bool _isInRoom, CE_Room _lastRoom, CE_Door _nextDoor = null, AIPhase _phase = AIPhase.Idle)
+    public void Init(CE_GameBoadCharacter _character, Vector3 pos, bool _isInRoom, CE_Room _lastRoom, CE_Room _nextRoom, AIPhase _phase = AIPhase.Idle)
     {
         characterRef = _character;
         transform.position = pos;
         name = $"{_character.Character} [IA]";
         isInRoom = _isInRoom;
-        nextDoorTarget = _nextDoor;
         lastRoom = _lastRoom;
+        nextRoomInvestigate = _nextRoom;
+
+        nextDoorTarget = GetNextDoor();
+
         currentAIPhase = _phase;
         Select(false);
         lightFeedBack = GetComponentInChildren<Light>();
