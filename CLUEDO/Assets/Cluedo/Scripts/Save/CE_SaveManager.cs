@@ -56,6 +56,14 @@ public class CE_SaveManager : MonoBehaviour
             _saveExist = File.Exists(_user.UserSaveJson);
             if (!_saveExist) yield break;
         }
+
+        _saveExist = File.Exists(_user.UserSaveBin);
+        if(!_saveExist)
+        {
+            _user.SaveUserBinary();
+            _saveExist = File.Exists(_user.UserSaveBin);
+            if (!_saveExist) yield break;
+        }
         yield return null;
     }
 
@@ -65,6 +73,7 @@ public class CE_SaveManager : MonoBehaviour
         bool _saveExist = File.Exists(_user.UserSaveJson);
         if (!_userExist || !_saveExist) yield break;
         _user.SaveUserJson();
+        _user.SaveUserBinary();
         yield return null;
     }
     #endregion
