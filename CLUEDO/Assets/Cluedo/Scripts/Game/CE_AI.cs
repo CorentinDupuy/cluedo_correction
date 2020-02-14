@@ -83,16 +83,20 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
     }
     IEnumerator AIFSM()
     {
-        currentAIPhase = AIPhase.Idle;
         if (!nextRoomInvestigate)
             nextRoomInvestigate = GetNextRoom();
         if ((!nextDoorTarget))
             nextDoorTarget = GetNextDoor();
         //Debug.Log($"it's my turn {characterRef.ColorName} with {nextRoomInvestigate.RoomName}");
-        yield return StartCoroutine(IAMove());
-        yield return StartCoroutine(IAEndMove());
+        if (currentAIPhase != AIPhase.Suggest)
+        {
+            yield return StartCoroutine(IAMove());
+            yield return StartCoroutine(IAEndMove());
+        }
         yield return StartCoroutine(IASuggest());
         OnEndTurn?.Invoke();
+
+        currentAIPhase = AIPhase.Idle;
     }
 
     public IEnumerator Move()
@@ -226,11 +230,15 @@ public class CE_AI : MonoBehaviour, IGamePlayable, IMove
         Select(false);
         lightFeedBack = GetComponentInChildren<Light>();
     }
-    public void Init(CE_GameBoadCharacter _character,Vector3 pos)
+    public void Init(CE_GameBoadCharacter _character, Vector3 pos, bool _isInRoom, CE_Room _lastRoom, CE_Door _nextDoor = null, AIPhase _phase = AIPhase.Idle)
     {
         characterRef = _character;
         transform.position = pos;
         name = $"{_character.Character} [IA]";
+        isInRoom = _isInRoom;
+        nextDoorTarget = _nextDoor;
+        lastRoom = _lastRoom;
+        currentAIPhase = _phase;
         Select(false);
         lightFeedBack = GetComponentInChildren<Light>();
     }

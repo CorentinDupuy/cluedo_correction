@@ -44,6 +44,9 @@ public class CE_Player : MonoBehaviour, IGamePlayable
     public bool IsInRoom => throw new NotImplementedException();
 
     public CE_NoteSystem NoteSystem => noteSystem;
+
+    bool IGamePlayable.IsInRoom { get => throw new NotImplementedException();}
+
     public CE_NoteSystem SetNotSystem(CE_NoteSystem _value) => noteSystem = _value;
     #endregion
 
