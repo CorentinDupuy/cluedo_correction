@@ -5,6 +5,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization;
 [Serializable]
 public class CE_GameUser
 {
@@ -18,6 +20,7 @@ public class CE_GameUser
     #region Public
     public string UserFolder => Path.Combine(CE_BaseURL.FolderPath, userPseudo);
     public string UserSaveJson => Path.Combine(CE_BaseURL.FolderPath, userPseudo, $"cluedo_save_{userPseudo}.json");
+    public string UserSaveBin => Path.Combine(CE_BaseURL.FolderPath, userPseudo, $"cluedo_save_{userPseudo}.bin");
     #endregion
     #endregion
 
@@ -52,10 +55,12 @@ public class CE_GameUser
             instance.MysteryCards,
             instance.PlayerCharacterIndex,
             instance.AllCharacterInGame);
+        IFormatter _toFormat = new BinaryFormatter();
 
-      //  string _data = BinaryWriter.(saveData);
-       // File.WriteAllText(UserSaveJson, _data);
-      //  Debug.Log(_data);
+        Stream _file = new FileStream(UserSaveBin, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+
+        _toFormat.Serialize(_file, saveData);
+        _file.Dispose();
     }
     #endregion
     #endregion

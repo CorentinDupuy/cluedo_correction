@@ -14,7 +14,7 @@ public class CE_Card
     [SerializeField] string name = "";
     [SerializeField] int id = 0;
     [SerializeField] CardType type = CardType.Character;
-    [SerializeField] Sprite picture = null;
+    [NonSerialized] Sprite picture = null;
     #endregion
     #region Public
     #endregion
