@@ -15,7 +15,7 @@ public class CE_NoteSystem
     #region Members
     #region Private
     Dictionary<int, CE_Note> allNotesItems = new Dictionary<int, CE_Note>();
-
+   
     #endregion
     #region Public
     #endregion

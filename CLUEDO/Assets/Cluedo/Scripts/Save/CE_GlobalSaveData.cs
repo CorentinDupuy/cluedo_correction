@@ -37,12 +37,12 @@ public class CE_GlobalSaveData
             if (ai)
                 savePlayerData.Add(new CE_PlayerDB(_characters[i].CharacterRef.CharacterTransform.position,
                     _characters[i].IsInRoom,
-                    _characters[i].NoteSystem,
+                    _characters[i].NoteSystem.GetNotes,
                     _characters[i].HandCards, _idNextRoom, _idLastRoom, ai.Phase, _posNextDoor));
             else
                 savePlayerData.Add(new CE_PlayerDB(_characters[i].CharacterRef.CharacterTransform.position,
                                                     _characters[i].IsInRoom,
-                                                    _characters[i].NoteSystem,
+                                                    _characters[i].NoteSystem.GetNotes,
                                                     _characters[i].HandCards, _idNextRoom, _idLastRoom, 0, _posNextDoor));
         }
         saveGameManagerData = new CE_GameManagerDB(CharacterIndexTurn, NumberOfTurns, mysteryCards, PlayerIndex);
