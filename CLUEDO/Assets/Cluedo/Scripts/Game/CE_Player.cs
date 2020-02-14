@@ -39,7 +39,7 @@ public class CE_Player : MonoBehaviour, IGamePlayable
 
     public CE_Room LastRoom => null;
 
-    public CE_Door NextDoorTarget => throw new NotImplementedException();
+    public CE_Door NextDoorTarget => null;
 
     public bool IsInRoom { get; private set; } = false;
 

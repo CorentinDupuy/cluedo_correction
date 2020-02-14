@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Linq;
-
+using System.Runtime.Serialization.Formatters.Binary;
 [Serializable]
 public class CE_GameUser
 {
@@ -41,6 +41,21 @@ public class CE_GameUser
         string _data = JsonUtility.ToJson(saveData);
         File.WriteAllText(UserSaveJson, _data);
         Debug.Log(_data);
+    }
+
+    public void SaveUserBinary()
+    {
+        if (!Directory.Exists(UserFolder)) return;
+        CE_GameManager instance = CE_GameManager.Instance;
+        CE_GlobalSaveData saveData = new CE_GlobalSaveData(instance.CurrentCharacterTurnIndex,
+            instance.CurrentTurn,
+            instance.MysteryCards,
+            instance.PlayerCharacterIndex,
+            instance.AllCharacterInGame);
+
+      //  string _data = BinaryWriter.(saveData);
+       // File.WriteAllText(UserSaveJson, _data);
+      //  Debug.Log(_data);
     }
     #endregion
     #endregion

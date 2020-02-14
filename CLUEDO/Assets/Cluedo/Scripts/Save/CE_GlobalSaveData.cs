@@ -32,17 +32,18 @@ public class CE_GlobalSaveData
         {
             int _idNextRoom = _characters[i].NextRoomInvestigate ? _characters[i].NextRoomInvestigate.ID : -1;
             int _idLastRoom = _characters[i].LastRoom ? _characters[i].LastRoom.ID : -1;
+            Vector3 _posNextDoor = _characters[i].NextDoorTarget ? _characters[i].NextDoorTarget.Position : Vector3.zero;
             CE_AI ai = _characters[i].CharacterRef.CharacterTransform.GetComponent<CE_AI>();
             if (ai)
                 savePlayerData.Add(new CE_PlayerDB(_characters[i].CharacterRef.CharacterTransform.position,
                     _characters[i].IsInRoom,
                     _characters[i].NoteSystem,
-                    _characters[i].HandCards, _idNextRoom, _idLastRoom, ai.Phase, _characters[i].NextDoorTarget));
+                    _characters[i].HandCards, _idNextRoom, _idLastRoom, ai.Phase, _posNextDoor));
             else
                 savePlayerData.Add(new CE_PlayerDB(_characters[i].CharacterRef.CharacterTransform.position,
                                                     _characters[i].IsInRoom,
                                                     _characters[i].NoteSystem,
-                                                    _characters[i].HandCards, _idNextRoom, _idLastRoom, (AIPhase)(-1), _characters[i].NextDoorTarget));
+                                                    _characters[i].HandCards, _idNextRoom, _idLastRoom, 0, _posNextDoor));
         }
         saveGameManagerData = new CE_GameManagerDB(CharacterIndexTurn, NumberOfTurns, mysteryCards, PlayerIndex);
     }
