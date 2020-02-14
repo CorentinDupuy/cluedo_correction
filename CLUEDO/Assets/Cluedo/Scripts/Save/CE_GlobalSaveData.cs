@@ -11,8 +11,8 @@ public class CE_GlobalSaveData
 
     #region Members
     #region Private
-    [SerializeField] List<CE_PlayerDB> savePlayerData = new List<CE_PlayerDB>();
-    [SerializeField] CE_GameManagerDB saveGameManagerData = new CE_GameManagerDB();
+    [SerializeField] public List<CE_PlayerDB> savePlayerData = new List<CE_PlayerDB>();
+    [SerializeField] public CE_GameManagerDB saveGameManagerData = new CE_GameManagerDB();
     #endregion
     #region Public
     #endregion
@@ -37,12 +37,12 @@ public class CE_GlobalSaveData
                 savePlayerData.Add(new CE_PlayerDB(_characters[i].CharacterRef.CharacterTransform.position,
                     _characters[i].IsInRoom,
                     _characters[i].NoteSystem,
-                    _characters[i].HandCards, _idNextRoom, _idLastRoom, ai.Phase));
+                    _characters[i].HandCards, _idNextRoom, _idLastRoom, ai.Phase, _characters[i].NextDoorTarget));
             else
                 savePlayerData.Add(new CE_PlayerDB(_characters[i].CharacterRef.CharacterTransform.position,
                                                     _characters[i].IsInRoom,
                                                     _characters[i].NoteSystem,
-                                                    _characters[i].HandCards, _idNextRoom, _idLastRoom, (AIPhase)(-1)));
+                                                    _characters[i].HandCards, _idNextRoom, _idLastRoom, (AIPhase)(-1), _characters[i].NextDoorTarget));
         }
         saveGameManagerData = new CE_GameManagerDB(CharacterIndexTurn, NumberOfTurns, mysteryCards, PlayerIndex);
     }
