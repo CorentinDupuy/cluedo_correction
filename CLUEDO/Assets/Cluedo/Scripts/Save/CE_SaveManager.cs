@@ -28,13 +28,15 @@ public class CE_SaveManager : MonoBehaviour
     
     IEnumerator Init()
     {
+
         yield return StartCoroutine(CreateGameEnvironment());
         yield return StartCoroutine(CreateUserEnvironmentJson(_user));
+        yield return new WaitForSeconds(20);
+        yield return StartCoroutine(SaveGame());
     }
 
     IEnumerator CreateGameEnvironment()
     {
-
         bool _userExist = Directory.Exists(_user.UserFolder);
         if(!_userExist)
         {

@@ -38,6 +38,13 @@ public struct CE_Suggest
     public void GiveCharacter(CE_Card _character) => Character = _character;
 
     public void GiveWeapon(CE_Card _weapon) => Weapon = _weapon;
+
+    public void Reset()
+    {
+        Room = null;
+        Character = null;
+        Weapon = null;
+    }
     #endregion
     #endregion
 }

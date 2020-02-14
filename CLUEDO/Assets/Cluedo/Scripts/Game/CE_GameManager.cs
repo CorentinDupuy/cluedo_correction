@@ -50,7 +50,7 @@ public class CE_GameManager : MonoBehaviour
     public CE_Deck GameDeck => gameDeck;
     public CE_MysteryCards MysteryCards => mysteryCards;
     public bool IsValid => gameDeck;
-    public bool StartGame { get; private set; } = false;
+    public bool StartGame { get; private set; } = false; 
     #endregion
 
     #region Methods

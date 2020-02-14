@@ -6,7 +6,7 @@ using UnityEngine;
 public class CE_Player : MonoBehaviour, IGamePlayable
 {
     #region Events
-    public event Action<bool> OnSelectPlayable =  null;
+    public event Action<bool> OnSelectPlayable = null;
     public event Action OnStartTurn = null;
     public event Action OnEndTurn = null;
     public event Action<CE_Suggest, IGamePlayable> OnStartSuggest = null;
@@ -35,9 +35,9 @@ public class CE_Player : MonoBehaviour, IGamePlayable
 
     public CE_HandCards HandCards => handCards;
 
-    public CE_Room NextRoomInvestigate => throw new NotImplementedException();
+    public CE_Room NextRoomInvestigate => null;
 
-    public CE_Room LastRoom => throw new NotImplementedException();
+    public CE_Room LastRoom => null;
 
     public CE_Door NextDoorTarget => throw new NotImplementedException();
 
@@ -72,7 +72,7 @@ public class CE_Player : MonoBehaviour, IGamePlayable
 
     public void OnStart(IGamePlayable _gamePlayable, int _dice)
     {
-        
+
     }
 
     public void Select(bool _isSelected)
@@ -82,7 +82,7 @@ public class CE_Player : MonoBehaviour, IGamePlayable
 
     void LightFeedBack(bool _enable)
     {
-        if(lightFeedBack)
+        if (lightFeedBack)
             lightFeedBack.enabled = _enable;
     }
     #endregion

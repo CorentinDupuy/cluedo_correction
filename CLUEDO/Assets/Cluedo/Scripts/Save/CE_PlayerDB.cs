@@ -19,6 +19,9 @@ public struct CE_PlayerDB
     [SerializeField] bool IsInRoom;
     [SerializeField] CE_NoteSystem NoteSystem;
     [SerializeField] CE_HandCards HandCards;
+    [SerializeField] int idNextRoom;
+    [SerializeField] int idLastRoom;
+    [SerializeField] AIPhase aiPhase;
     #endregion
     #endregion
 
@@ -29,7 +32,7 @@ public struct CE_PlayerDB
     #region Private
     #endregion
     #region Public
-    public CE_PlayerDB(Vector3 _position, bool _isInRoom, CE_NoteSystem _noteSystem, CE_HandCards _handCards)
+    public CE_PlayerDB(Vector3 _position, bool _isInRoom, CE_NoteSystem _noteSystem, CE_HandCards _handCards, int _idNextRoom, int _idLastRoom, AIPhase _aiPhase)
     {
         positionX = _position.x;
         positionY = _position.y;
@@ -40,6 +43,11 @@ public struct CE_PlayerDB
         NoteSystem = _noteSystem;
 
         HandCards = _handCards;
+
+        idLastRoom = _idLastRoom;
+        idNextRoom = _idNextRoom;
+
+        aiPhase = _aiPhase;
     }
     #endregion
     #endregion

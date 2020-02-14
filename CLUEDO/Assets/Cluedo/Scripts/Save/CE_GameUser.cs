@@ -41,7 +41,6 @@ public class CE_GameUser
         string _data = JsonUtility.ToJson(saveData);
         File.WriteAllText(UserSaveJson, _data);
         Debug.Log(_data);
-
     }
     #endregion
     #endregion
