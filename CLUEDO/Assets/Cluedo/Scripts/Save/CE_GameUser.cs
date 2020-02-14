@@ -18,6 +18,8 @@ public class CE_GameUser
     [SerializeField] string userPseudo = "Jean-Marmoud";
     #endregion
     #region Public
+    public string UserPseudo => userPseudo;
+
     public string UserFolder => Path.Combine(CE_BaseURL.FolderPath, userPseudo);
     public string UserSaveJson => Path.Combine(CE_BaseURL.FolderPath, userPseudo, $"cluedo_save_{userPseudo}.json");
     public string UserSaveBin => Path.Combine(CE_BaseURL.FolderPath, userPseudo, $"cluedo_save_{userPseudo}.bin");

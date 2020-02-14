@@ -2,18 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class CE_SaveManager : MonoBehaviour
 {
     #region Events
+    public static event Action<bool> OnLoadSave = null;
     #endregion
 
     #region Members
     #region Private
     static CE_SaveManager instance = null;
-    public static CE_SaveManager Instance => instance;
+   public  static CE_SaveManager Instance => instance;
+
+
+    CE_GlobalSaveData globlaSaveData = null;
 
     [SerializeField] CE_GameUser user = new CE_GameUser();
+
+
+    [SerializeField] bool loadSave = false;
+    public bool LoadSave => loadSave /*&& CE_DataPath.IsSave(currentUser)*/;
     #endregion
     #region Public
     #endregion
@@ -27,6 +36,8 @@ public class CE_SaveManager : MonoBehaviour
     private void Awake()
     { 
         CE_GameManager.OnEndInit += () => StartCoroutine(Init());
+        if(loadSave)
+            CE_GameManager.OnEndInit += () => StartCoroutine(Load());
         InitSingleton();
     }
 
@@ -34,6 +45,10 @@ public class CE_SaveManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
+        name += "[MNG]";
+
+        DontDestroyOnLoad(this);
     }
 
     IEnumerator Init()
@@ -76,7 +91,7 @@ public class CE_SaveManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator SaveGame()
+    public IEnumerator SaveGame()
     {
         bool _userExist = Directory.Exists(user.UserFolder);
         bool _saveExist = File.Exists(user.UserSaveJson);
@@ -86,8 +101,25 @@ public class CE_SaveManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator Load()
+    {
+        if (IsSave(user.UserPseudo))
+        {
+            globlaSaveData = CE_LoadSave.ReadSave(user.UserSaveJson);
 
+        }
+        CE_GameManager _instance = CE_GameManager.Instance;
 
+        yield return StartCoroutine(_instance.SetPlayerAndAI(globlaSaveData));
+        yield return StartCoroutine(_instance.LoadMysteryCard(globlaSaveData));
+        yield return StartCoroutine(SaveComplete());
+    }
+
+    private IEnumerator SaveComplete()
+    {
+        OnLoadSave?.Invoke(JsonFileExist());
+        yield return null;
+    }
     // bin
     public bool BinFileExist()
     {

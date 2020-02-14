@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+/*
 public class CE_DataPath
 {
-
     
     public static string DataPath => Path.Combine(FolderDataPath, DataPathExtension);
     public static string FolderDataPath => Path.Combine(Application.persistentDataPath, currentUser);
@@ -14,7 +14,7 @@ public class CE_DataPath
     public static string FolderDataPathSecure => Path.Combine(FolderDataPath, FolderSecure);
     static string DataPathSecureExtension => "ghnhuz.TOTORO";
     static string FolderSecure = "Porn";
-    
+        
     static bool InitFolder()
     {
         if (!Directory.Exists(FolderDataPath))
@@ -57,3 +57,4 @@ public class CE_DataPath
         return File.ReadAllText(DataPath) != string.Empty;
     }
 }
+*/
