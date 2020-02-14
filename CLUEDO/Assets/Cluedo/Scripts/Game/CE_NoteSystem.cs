@@ -15,7 +15,14 @@ public class CE_NoteSystem
     #region Members
     #region Private
     Dictionary<int, CE_Note> allNotesItems = new Dictionary<int, CE_Note>();
-   
+    public CE_NoteSystem(List<CE_Note> _list)
+    {
+        for(int i = 0; i< _list.Count;i++)
+        {
+            allNotesItems.Add(i, _list[i]);
+        }
+    }
+    public CE_NoteSystem() { }
     #endregion
     #region Public
     #endregion

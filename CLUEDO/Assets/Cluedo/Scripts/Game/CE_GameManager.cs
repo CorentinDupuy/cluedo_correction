@@ -124,7 +124,7 @@ public class CE_GameManager : MonoBehaviour
         CE_Player _player = allGamePlayable[_db.saveGameManagerData.PlayerIndex].CharacterTransform.gameObject.AddComponent<CE_Player>();
         _player.Init(allGamePlayable[_db.saveGameManagerData.PlayerIndex], _db.savePlayerData[_db.saveGameManagerData.PlayerIndex].Pos);
         AllCharacterInGame.Add(_player);
-        _player.SetNotSystem(_db.savePlayerData[_db.saveGameManagerData.PlayerIndex].NoteSystem);
+        _player.SetNotSystem(new CE_NoteSystem( _db.savePlayerData[_db.saveGameManagerData.PlayerIndex].notes));
         OnPlayerInit?.Invoke(_player);
         yield return new WaitForSeconds(.5f);
         int _count = 0;
@@ -140,7 +140,7 @@ public class CE_GameManager : MonoBehaviour
 
                 _ai.Init(allGamePlayable[i], _db.savePlayerData[i].Pos, _db.savePlayerData[i].IsInRoom, _lastRoom, _nextRoom, _iaPhase);
 
-                _ai.SetNoteSystem(_db.savePlayerData[i].NoteSystem);
+                _ai.SetNoteSystem(new CE_NoteSystem( _db.savePlayerData[i].notes));
                 AllCharacterInGame.Add(_ai);
                 yield return new WaitForSeconds(.5f);
                 _count++;
